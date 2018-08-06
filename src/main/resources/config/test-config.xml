@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--This XML is a spring MVC example configuration file..-->
+    <bean id="testConfigByXml" class="com.lanxinbase.system.service.TestServerImpl" scope="prototype">
+        <property name="p1" value="I'm config by xml"/>
+    </bean>
+</beans>
