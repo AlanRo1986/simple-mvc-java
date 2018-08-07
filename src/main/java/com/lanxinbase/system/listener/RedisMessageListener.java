@@ -40,15 +40,7 @@ public class RedisMessageListener implements MessageListener {
         String content = (String) redisTemplate.getValueSerializer().deserialize(body);
         String topic = redisTemplate.getStringSerializer().deserialize(channel);
 
-        /**
-         * webSocket的消息
-         */
-        if (topic.equals(ConstantRedis.CHANNEL)){
-
-            logger.info("default.");
-        }else if (topic.equals(ConstantRedis.CHANNEL_TEST)){
-            logger.info("default test.");
-        }
+        logger.info(String.format("Redis Sub:channel=%s,content=%s",topic,content));
 
     }
 

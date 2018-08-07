@@ -55,7 +55,7 @@ public class TestController extends BasicApiController   {
         try {
             Map<String, Object> data = new HashMap<>();
             LxUser user = new LxUser();
-            user.setUsername("name"+ DateUtils.getTimeInt());
+            user.setUsername("name"+ DateUtils.getTimeInt()+"01");
             user.setCreateTime(DateUtils.getTimeInt());
             data.put("users",userService.insert(user));
             resp.setData(data);

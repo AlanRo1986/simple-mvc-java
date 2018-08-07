@@ -7,6 +7,7 @@ import com.lanxinbase.service.resource.IUserService;
 import com.lanxinbase.system.basic.CompactService;
 import com.lanxinbase.system.exception.IllegalServiceException;
 import com.lanxinbase.system.pojo.PagePojo;
+import com.lanxinbase.system.utils.DateUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,9 +29,8 @@ public class UserServiceImpl extends CompactService implements IUserService {
     public int insert(LxUser record) throws IllegalServiceException {
         record.setAge(110);
         userMapper.insertSelective(record);
-        if (record.getAge() == 110){
-            throw new RuntimeException("超时啦");
-        }
+
+        record.setUsername("name"+ DateUtils.getTimeInt()+"😁❤");
         return userMapper.insertSelective(record);
     }
 
