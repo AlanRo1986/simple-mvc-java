@@ -10,47 +10,91 @@ import com.lanxinbase.system.provider.handler.HttpConnector;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by alan.luo on 2017/8/10.
+ * Created by alan on 2019/4/20.
  */
-public class CommonUtils {
+public class CommonUtils extends OutPut {
+    public CommonUtils() {
 
-    public static String getOrderSn(int userId) {
-        String str = "800" + userId;
-        str += NumberUtils.getRandom(1111, 9999);
-        str += String.valueOf(DateUtils.getTime()).substring(5) + "00" + NumberUtils.getRandom(1111, 9999);
-        return str;
+    }
+
+    public static Locale getLocaleDefault() {
+        return Locale.getDefault();
     }
 
     /**
-     * 取支付编码
      *
-     * @return
+     * @param m
+     * @param patten #.##|#0.00|#.##
+     * @return double
      */
-    public static String getPaySn(int userId) {
-        String str = "100" + userId;
-        str += NumberUtils.getRandom(1111, 9999);
-        str += String.valueOf(DateUtils.getTime()).substring(7) + "00" + NumberUtils.getRandom(1111, 9999);
-        return str;
+    public static Double numberFormatD(double m, String patten) {
+        return Double.parseDouble(numberFormatS(m, patten));
     }
 
-
-    /**
-     * 格式化金钱，返回00.00格式
-     *
-     * @param money
-     * @return
-     */
-    public static String moneyFormat(Double money) {
-        if (money == null) {
-            return "0.00";
+    public static String numberFormatS(double m, String patten) {
+        if (patten == null) {
+            patten = "#0.00";
         }
-        DecimalFormat df = new DecimalFormat("#0.00");
-        return df.format(money);
+        DecimalFormat format = new DecimalFormat(patten);
+        return format.format(m);
+    }
+
+    public static Number numberFormatD(double m) {
+        return numberParse(numberFormat(m,2));
+    }
+
+    public static String numberFormat(double m) {
+        return numberFormat(m,2);
+    }
+
+    public static String numberFormat(double m,int d) {
+        NumberFormat format = NumberFormat.getNumberInstance(getLocaleDefault());
+        format.setMaximumFractionDigits(d);
+        format.setGroupingUsed(false);
+        return format.format(m);
+    }
+
+    public static Number currencyFormatD(double m) {
+        return currencyParse(currencyFormat(m,2));
+    }
+
+    public static String currencyFormat(double m) {
+        return currencyFormat(m,2);
+    }
+
+    public static String currencyFormat(double m,int d) {
+        NumberFormat format = NumberFormat.getCurrencyInstance(getLocaleDefault());
+        format.setMaximumFractionDigits(d);
+//        format.setGroupingUsed(false);
+        return format.format(m);
+    }
+
+    public static Number numberParse(String m) {
+        NumberFormat format = NumberFormat.getNumberInstance(getLocaleDefault());
+        try {
+            return format.parse(m);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public static Number currencyParse(String m) {
+        NumberFormat format = NumberFormat.getCurrencyInstance(getLocaleDefault());
+        try {
+            return format.parse(m);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     /**
@@ -64,66 +108,12 @@ public class CommonUtils {
         return (int) (Double.parseDouble(df.format(money)) * 100);
     }
 
-    /**
-     * 格式化数字
-     *
-     * @param number
-     * @param pattern 比如:00.0
-     * @return
-     */
-    public static String formatNumber(Float number, String pattern) {
-        if (pattern == null) {
-            pattern = "#0.00";
-        }
-        DecimalFormat df = new DecimalFormat(pattern);
-        return df.format(number);
-    }
-
-    public static float formatNumber2(Float number, String pattern) {
-        if (pattern == null) {
-            pattern = "#0.00";
-        }
-        DecimalFormat df = new DecimalFormat(pattern);
-        return Float.parseFloat(df.format(number));
-    }
-
-    public static Double formatNumber(Double number, String pattern) {
-        if (number == null) {
-            return 0.00;
-        }
-        if (pattern == null) {
-            pattern = "#0.00";
-        }
-        DecimalFormat df = new DecimalFormat(pattern);
-        return Double.valueOf(df.format(number));
-    }
-
-    /**
-     * 用户手机号码隐藏
-     *
-     * @param mobile
-     * @return
-     */
     public static String hideMobile(String mobile) {
         return mobile.substring(0, 4) + "****" + mobile.substring(mobile.length()-2);
     }
 
     public static String hideIdno(String idno) {
         return idno.substring(0, 1) + "************" + idno.substring(idno.length() - 1);
-    }
-
-    /**
-     * 解析double
-     *
-     * @param a
-     * @return
-     */
-    public static Double parseDouble(String a) {
-        if (StringUtils.isEmpty(a)) {
-            return 0.0;
-        }
-
-        return Double.parseDouble(a);
     }
 
     public static String getClientIp(HttpServletRequest request) {
@@ -166,7 +156,7 @@ public class CommonUtils {
 
         HttpProvider httpProvider = (HttpProvider) Application.getInstance(null).getBean(HttpProvider.class);
         String s = httpProvider.get(String.format(ConstantApi.BaiduMap.geocoder, lat, lnt), data);
-        
+
         Map<String, Object> res = JsonUtil.JsonToMap(s);
         if (res != null && res.containsKey("responseData")) {
             res = (Map<String, Object>) res.get("responseData");
@@ -328,11 +318,11 @@ public class CommonUtils {
         if (i <= 0) {
             res = "已结束";
         } else if (i <= 3600 && i > 0) {
-            res = CommonUtils.formatNumber(((double) i / 60.0), "#0") + "分钟";
+            res = CommonUtils.numberFormatS(((double) i / 60.0), "#0") + "分钟";
         } else if (i < 86400 && i > 3600) {
-            res = CommonUtils.formatNumber(((double) i / 3600.0), "#0.0") + "小时";
+            res = CommonUtils.numberFormatS(((double) i / 3600.0), "#0.0") + "小时";
         } else if (i >= 86400) {
-            res = CommonUtils.formatNumber(((double) i / 86400.0), "#0.0") + "天";
+            res = CommonUtils.numberFormatS(((double) i / 86400.0), "#0.0") + "天";
         }
         return res;
     }
@@ -346,5 +336,45 @@ public class CommonUtils {
         return i + "";
     }
 
+
+    public static void main(String[] args) {
+        Locale locale = Locale.getDefault();
+
+        out(locale.getCountry());
+        out(locale.getDisplayLanguage());
+        out(locale.getDisplayCountry());
+        out(locale.getDisplayName());
+        out(locale.getLanguage());
+        out(locale.getScript());
+
+        out(numberFormat(1.2354));
+        out(numberFormat(1345651.2954));
+        out(numberFormat(13456434551.2874));
+
+        out(numberParse("1,345,651.295"));
+        out(currencyParse("￥1,365,651.295"));
+
+        out("----------------------");
+        out(getLocaleDefault().getDisplayName());
+        out(numberFormatD(245841.568122,null));
+        out(numberFormatS(245841.568122,null));
+        out(numberFormatD(58434531.568342,"#0.00"));
+        out(numberFormatS(245843461.56863422,"#.####"));
+
+        out(numberFormat(245841.568122));
+        out(numberFormatD(245841.568122));
+        out(numberFormat(245841.568892647122,4));
+        out(currencyFormat(245841.568122));
+        out(currencyFormatD(245841.568122));
+        out(currencyFormat(245841.5688796122,4));
+
+        double d = numberFormatD(1843461.5682,"#.####");
+        out(d);
+        out(numberFormat(8799245841.568122));
+        out(numberFormatS(numberFormatD(8799245841.568122).doubleValue(),"#.####"));
+        out(numberFormat(numberFormatD(8799245841.568122).doubleValue(),3));
+
+
+    }
 
 }

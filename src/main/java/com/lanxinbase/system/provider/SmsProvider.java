@@ -66,7 +66,7 @@ public class SmsProvider extends CompactProvider {
         /**
          * 生成的验证码
          */
-        String code = String.valueOf(NumberUtils.getRandom(111111, 999999));
+        String code = String.valueOf(NumberUtils.random(111111, 999999));
 
         logger(">>>>>>>>>>>>>>>" + code);
         request.setPhoneNumbers(mobile);

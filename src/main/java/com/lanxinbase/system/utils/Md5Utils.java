@@ -6,7 +6,9 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by alan.luo on 2017/7/27.
+ * @See MessageDigestUtils.class
  */
+@Deprecated
 public class Md5Utils {
     public Md5Utils(){
 

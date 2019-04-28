@@ -17,8 +17,8 @@
           <element id="library" level="project" name="Maven: com.github.jai-imageio:jai-imageio-core:1.3.1" />
           <element id="library" level="project" name="Maven: com.google.zxing:core:3.3.0" />
           <element id="library" level="project" name="Maven: org.aspectj:aspectjweaver:1.9.0" />
-          <element id="library" level="project" name="Maven: com.mchange:c3p0:0.9.5.2" />
-          <element id="library" level="project" name="Maven: com.mchange:mchange-commons-java:0.2.11" />
+          <element id="library" level="project" name="Maven: com.mchange:c3p0:0.9.5.4" />
+          <element id="library" level="project" name="Maven: com.mchange:mchange-commons-java:0.2.15" />
           <element id="library" level="project" name="Maven: javax.transaction:javax.transaction-api:1.2" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:4.3.18.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.3.18.RELEASE" />
@@ -50,9 +50,6 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.3.18.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-web:4.3.18.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-core:4.3.18.RELEASE" />
-          <element id="library" level="project" name="alipay-sdk-java20171201160035" />
-          <element id="library" level="project" name="aliyun-java-sdk-core-3.2.3" />
-          <element id="library" level="project" name="aliyun-java-sdk-dysmsapi-1.0.0-SANPSHOT" />
         </element>
       </element>
       <element id="directory" name="META-INF">

@@ -181,20 +181,5 @@ public class CollectionUtils {
         }
     }
 
-    public static Map<String, String> sort(Map<String, String> map) {
-        if (map == null || map.isEmpty()) {
-            return null;
-        }
-
-        Map<String, String> sortMap = new TreeMap<String, String>(new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return o1.compareTo(o2);
-            }
-        });
-        sortMap.putAll(map);
-        return sortMap;
-    }
-
 
 }

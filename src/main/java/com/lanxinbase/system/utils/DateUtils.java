@@ -9,7 +9,9 @@ import java.util.TimeZone;
 
 /**
  * Created by alan.luo on 2017/8/4.
+ * @See DateTimeUtils.class
  */
+@Deprecated
 public class DateUtils {
     public static final String YEAR = "yyyy";
     public static final String MONTH = "MM";

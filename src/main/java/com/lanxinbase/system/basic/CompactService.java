@@ -34,7 +34,7 @@ public abstract class CompactService extends AbstractCompact {
     }
 
     public String formatMoney(double money){
-        return CommonUtils.moneyFormat(money);
+        return CommonUtils.currencyFormat(money);
     }
 
     private String formatDateTime(String time){

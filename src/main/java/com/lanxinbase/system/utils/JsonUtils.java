@@ -1,42 +1,50 @@
 package com.lanxinbase.system.utils;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import org.springframework.util.StringUtils;
+
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Created by alan.luo on 2017/7/27.
- * @See JsonUtils.class
  */
-@Deprecated
-public class JsonUtil {
+public class JsonUtils {
 
-
-    public JsonUtil() {
-    }
 
     /**
      *
-     * @param json
-     * @param classz
+     * @param json string json
+     * @param classz object class
      * @param <T> new TypeToken<List<Person>>(){}.getType()
-     * @return
+     * @return Object
      */
-    public static <T> T JsonToObject(String json, Class<T> classz) {
+    public static <T> T jsonToObject(String json, Class<T> classz) {
         Gson gson = new Gson();
         return gson.fromJson(json, classz);
     }
 
-    public static <T> T JsonToObject(String json, Type type) {
+
+    /**
+     * JSON String to Object
+     * @param json String
+     * @param type Object.class
+     * @param <T> Object
+     * @return Object
+     */
+    public static <T> T jsonToObject(String json, Type type) {
         Gson gson = new Gson();
         return gson.fromJson(json, type);
     }
 
-
-    public static Map<String, Object> JsonToMap(String json) {
+    /**
+     * JSON string to Map<String,Object>
+     * @param json String
+     * @return Map<String, Object>
+     */
+    public static Map<String, Object> jsonToMap(String json) {
         if(json==null){
             return null;
         }
@@ -46,7 +54,12 @@ public class JsonUtil {
         return map;
     }
 
-    public static Map<String, String> JsonToMaps(String json) {
+    /**
+     * JSON string to Map<String,String>
+     * @param json String
+     * @return Map<String,String>
+     */
+    public static Map<String, String> jsonToMapString(String json) {
         GsonBuilder gb = new GsonBuilder();
         Gson g = gb.create();
         Map<String, String> map = g.fromJson(json, new TypeToken<Map<String, String>>() {
@@ -55,7 +68,12 @@ public class JsonUtil {
     }
 
 
-    public static List<Map<String, Object>> JsonToList(String json) {
+    /**
+     * JSON string to list<Map<>>
+     * @param json String
+     * @return list<Map<>>
+     */
+    public static List<Map<String, Object>> jsonToList(String json) {
         GsonBuilder gb = new GsonBuilder();
         Gson g = gb.create();
         List<Map<String, Object>> map = g.fromJson(json, new TypeToken<List<Map<String, Object>>>() {
@@ -63,7 +81,12 @@ public class JsonUtil {
         return map;
     }
 
-    public static List<String> JsonToStringList(String json) {
+    /**
+     * JSON string to List Object.
+     * @param json String
+     * @return List<String>
+     */
+    public static List<String> jsonToListString(String json) {
         GsonBuilder gb = new GsonBuilder();
         Gson g = gb.create();
         List<String> map = g.fromJson(json, new TypeToken<List<String>>() {
@@ -72,12 +95,12 @@ public class JsonUtil {
     }
 
     /**
-     * 对象转换成json
-     *
-     * @param object
+     * object to JSON String
+     * @param object object
+     * @param isSerializeNull if false will be filtered null values.
      * @return
      */
-    public static String ObjectToJson(Object object, boolean isSerializeNull) {
+    public static String objectToJson(Object object, boolean isSerializeNull) {
         if (isSerializeNull) {
             GsonBuilder gb = new GsonBuilder();
             gb.serializeNulls();
@@ -89,12 +112,6 @@ public class JsonUtil {
         }
     }
 
-    /**
-     * 判断是否json
-     *
-     * @param str
-     * @return
-     */
     public static boolean isJson(String str) {
         if (StringUtils.isEmpty(str)) {
             return false;

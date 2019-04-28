@@ -117,7 +117,7 @@ public class AliPayHandler implements IAliPayHandler {
         model.setSubject(subject);
         model.setOutTradeNo(paySn);
         model.setTimeoutExpress("30m");
-        model.setTotalAmount(CommonUtils.moneyFormat(money));
+        model.setTotalAmount(CommonUtils.numberFormat(money));
 
         //model.setProductCode("QUICK_MSECURITY_PAY");
         //model.setBody("subject");
