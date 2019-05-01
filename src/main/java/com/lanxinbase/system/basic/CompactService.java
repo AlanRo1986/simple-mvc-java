@@ -4,6 +4,7 @@ package com.lanxinbase.system.basic;
 import com.lanxinbase.system.exception.IllegalServiceException;
 import com.lanxinbase.system.exception.IllegalValidateException;
 import com.lanxinbase.system.utils.CommonUtils;
+import com.lanxinbase.system.utils.DateTimeUtils;
 import com.lanxinbase.system.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -41,7 +42,7 @@ public abstract class CompactService extends AbstractCompact {
         if (time.length() < 11){
             return "";
         }
-        return DateUtils.getFullDateTime(Long.parseLong(time));
+        return DateTimeUtils.format(Long.valueOf(time),DateTimeUtils.FORMAT_EX);
     }
 
     public String formatDateTime(Integer time){
@@ -52,7 +53,7 @@ public abstract class CompactService extends AbstractCompact {
     }
 
     public int getTime(){
-        return DateUtils.getTimeInt();
+        return DateTimeUtils.getTimeInt();
     }
 
     /**

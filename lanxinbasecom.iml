@@ -85,5 +85,38 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:4.3.18.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-web:4.3.18.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-core:4.3.18.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.activemq:artemis-server:2.7.0" level="project" />
+    <orderEntry type="library" name="Maven: org.jboss.logging:jboss-logging:3.3.1.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.jboss.logmanager:jboss-logmanager:2.0.3.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.activemq:artemis-commons:2.7.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.activemq:artemis-selector:2.7.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.activemq:artemis-journal:2.7.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.activemq:artemis-jdbc-store:2.7.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.activemq:artemis-core-client:2.7.0" level="project" />
+    <orderEntry type="library" name="Maven: org.jgroups:jgroups:3.6.13.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.johnzon:johnzon-core:0.9.5" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.activemq:activemq-artemis-native:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-buffer:4.1.34.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-transport:4.1.34.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-resolver:4.1.34.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-codec-http:4.1.34.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-common:4.1.34.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-handler:4.1.34.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-transport-native-epoll:linux-x86_64:4.1.34.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-transport-native-unix-common:4.1.34.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-transport-native-kqueue:osx-x86_64:4.1.34.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-codec:4.1.34.Final" level="project" />
+    <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils:1.9.3" level="project" />
+    <orderEntry type="library" name="Maven: commons-collections:commons-collections:3.2.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-configuration2:2.4" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.8.1" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-text:1.6" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.geronimo.specs:geronimo-json_1.0_spec:1.0-alpha-1" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.activemq:artemis-jms-client:2.7.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.geronimo.specs:geronimo-jms_2.0_spec:1.0-alpha-2" level="project" />
+    <orderEntry type="library" name="Maven: org.fusesource.mqtt-client:mqtt-client:1.15" level="project" />
+    <orderEntry type="library" name="Maven: org.fusesource.hawtdispatch:hawtdispatch-transport:1.22" level="project" />
+    <orderEntry type="library" name="Maven: org.fusesource.hawtdispatch:hawtdispatch:1.22" level="project" />
+    <orderEntry type="library" name="Maven: org.fusesource.hawtbuf:hawtbuf:1.11" level="project" />
   </component>
 </module>

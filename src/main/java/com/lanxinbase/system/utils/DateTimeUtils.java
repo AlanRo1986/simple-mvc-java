@@ -73,6 +73,8 @@ public class DateTimeUtils extends OutPut {
     public static final String DATE_TIME_FULL = "yyyy-MM-dd HH:mm:ss";
     public static final String DATE_TIME_FULL2 = "yyyyMMddHHmmss";
     public static final String WEEK = "EEEE";
+    public static final int FORMAT_EX = 1;
+    public static final int FORMAT_EX2 = 2;
 
     private static final int ZONE_HOUR = 8;
 
