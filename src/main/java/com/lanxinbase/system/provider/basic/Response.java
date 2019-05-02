@@ -1,6 +1,6 @@
 package com.lanxinbase.system.provider.basic;
 
-import com.lanxinbase.system.utils.JsonUtil;
+import com.lanxinbase.system.utils.JsonUtils;
 
 import java.util.Map;
 
@@ -49,8 +49,8 @@ public class Response {
 
     public void setRaw(String raw) {
         this.raw = raw;
-        if (raw != null && JsonUtil.isJson(raw)) {
-            this.setData(JsonUtil.JsonToMap(raw));
+        if (raw != null && JsonUtils.isJson(raw)) {
+            this.setData(JsonUtils.jsonToMap(raw));
         }
     }
 

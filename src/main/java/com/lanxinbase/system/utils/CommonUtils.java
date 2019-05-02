@@ -1,19 +1,14 @@
 package com.lanxinbase.system.utils;
 
-import com.lanxinbase.constant.ConstantApi;
 import com.lanxinbase.constant.ConstantConf;
 import com.lanxinbase.system.core.Application;
 import com.lanxinbase.system.listener.RequestListener;
-import com.lanxinbase.system.provider.HttpProvider;
-import com.lanxinbase.system.provider.basic.HttpRequestData;
-import com.lanxinbase.system.provider.handler.HttpConnector;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -142,33 +137,6 @@ public class CommonUtils extends OutPut {
         return ip;
     }
 
-    /**
-     * 百度地图云逆地理编码服务
-     *
-     * @param lat
-     * @param lnt
-     * @return
-     */
-    public static String geocoder(double lat, double lnt) {
-        String resStr = "";
-        HttpRequestData data = new HttpRequestData();
-        data.setMethod(HttpConnector.GET);
-
-        HttpProvider httpProvider = (HttpProvider) Application.getInstance(null).getBean(HttpProvider.class);
-        String s = httpProvider.get(String.format(ConstantApi.BaiduMap.geocoder, lat, lnt), data);
-
-        Map<String, Object> res = JsonUtil.JsonToMap(s);
-        if (res != null && res.containsKey("responseData")) {
-            res = (Map<String, Object>) res.get("responseData");
-            if (res.containsKey("result") && Double.valueOf(res.get("status").toString()) == 0) {
-                res = (Map<String, Object>) res.get("result");
-                if (res.containsKey("formatted_address") && res.containsKey("sematic_description")) {
-                    resStr = res.get("formatted_address").toString() + res.get("sematic_description").toString();
-                }
-            }
-        }
-        return resStr;
-    }
 
     public static boolean testMobile(String mobile) {
         if (mobile == null) {

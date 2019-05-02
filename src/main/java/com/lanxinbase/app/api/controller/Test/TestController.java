@@ -7,7 +7,7 @@ import com.lanxinbase.service.resource.IUserService;
 import com.lanxinbase.system.basic.BasicApiController;
 import com.lanxinbase.system.core.ResultResp;
 import com.lanxinbase.system.exception.IllegalServiceException;
-import com.lanxinbase.system.utils.DateUtils;
+import com.lanxinbase.system.utils.DateTimeUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,8 +55,8 @@ public class TestController extends BasicApiController   {
         try {
             Map<String, Object> data = new HashMap<>();
             LxUser user = new LxUser();
-            user.setUsername("name"+ DateUtils.getTimeInt()+"01");
-            user.setCreateTime(DateUtils.getTimeInt());
+            user.setUsername("name"+ DateTimeUtils.getTimeInt()+"01");
+            user.setCreateTime(DateTimeUtils.getTimeInt());
             data.put("users",userService.insert(user));
             resp.setData(data);
         } catch (IllegalServiceException e) {

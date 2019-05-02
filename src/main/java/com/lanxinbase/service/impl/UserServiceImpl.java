@@ -7,7 +7,6 @@ import com.lanxinbase.service.resource.IUserService;
 import com.lanxinbase.system.basic.CompactService;
 import com.lanxinbase.system.exception.IllegalServiceException;
 import com.lanxinbase.system.pojo.PagePojo;
-import com.lanxinbase.system.utils.DateUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +29,7 @@ public class UserServiceImpl extends CompactService implements IUserService {
         record.setAge(110);
         userMapper.insertSelective(record);
 
-        record.setUsername("name"+ DateUtils.getTimeInt()+"😁❤");
+        record.setUsername("name"+ getTime()+"😁❤");
         return userMapper.insertSelective(record);
     }
 

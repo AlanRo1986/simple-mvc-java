@@ -3,13 +3,12 @@ package com.lanxinbase.system.api.wx;
 import com.github.wxpay.sdk.WXPay;
 import com.github.wxpay.sdk.WXPayUtil;
 import com.lanxinbase.system.exception.IllegalValidateException;
-import com.lanxinbase.system.provider.HttpProvider;
+import com.lanxinbase.system.provider.HttpV2Provider;
 import com.lanxinbase.system.provider.basic.HttpRequestData;
-import com.lanxinbase.system.provider.handler.HttpConnector;
+import com.lanxinbase.system.provider.basic.Response;
 import com.lanxinbase.system.utils.CommonUtils;
-import com.lanxinbase.system.utils.DateUtils;
-import com.lanxinbase.system.utils.JsonUtil;
-import com.lanxinbase.system.utils.Md5Utils;
+import com.lanxinbase.system.utils.DateTimeUtils;
+import com.lanxinbase.system.utils.MessageDigestUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -113,7 +112,7 @@ public class WxPayHandler implements IWxPayHandler {
         data.put("total_fee", String.valueOf(CommonUtils.moneyFormatToInt(totalFee)));
         data.put("refund_fee", String.valueOf(CommonUtils.moneyFormatToInt(money)));
         data.put("refund_desc", subject);
-        data.put("nonce_str", Md5Utils.md5(String.valueOf(DateUtils.getTime())));
+        data.put("nonce_str", MessageDigestUtils.md5(String.valueOf(DateTimeUtils.getTime())));
 
         String xml = "<xml>"
                 + "<appid>" + data.get("appid") + "</appid>"
@@ -277,12 +276,12 @@ public class WxPayHandler implements IWxPayHandler {
         return wxConfig;
     }
 
-    protected Map<String, Object> curl(String url) {
+    private Map<String, Object> curl(String url) {
         HttpRequestData data = new HttpRequestData();
-        HttpProvider http = HttpProvider.getInstance();
-        String res = http.get(url, data);
-        logger.info(">>>>>>>>" + res);
-        return JsonUtil.JsonToMap(res);
+        HttpV2Provider http = HttpV2Provider.newInstance();
+        Response res = http.get(url, data);
+        logger.info(">>>>>>>>" + res.getRaw());
+        return res.getData();
     }
 
     /**
@@ -302,7 +301,7 @@ public class WxPayHandler implements IWxPayHandler {
         sb.append("total_fee=" + map.get("total_fee") + "&");
         sb.append("transaction_id=" + map.get("transaction_id") + "&");
         sb.append("key=" + getWxConfig().getKey());
-        String sign = Md5Utils.md5(sb.toString()).toUpperCase();
+        String sign = MessageDigestUtils.md5(sb.toString()).toUpperCase();
         //appid=wx9eefb5cdb99716d6&mch_id=1494650512&nonce_str=50e6a4d9f106b33ab086950e6f2ce365&out_refund_no=R100201712126950468283114&out_trade_no=100201712126950468283114&
         // refund_fee=50000&total_fee=50000&transaction_id=20171219
         return sign;

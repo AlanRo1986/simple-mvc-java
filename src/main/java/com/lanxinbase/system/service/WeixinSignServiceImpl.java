@@ -4,9 +4,9 @@ import com.lanxinbase.constant.ConstantConf;
 import com.lanxinbase.system.basic.CompactService;
 import com.lanxinbase.system.core.Application;
 import com.lanxinbase.system.provider.CacheProvider;
-import com.lanxinbase.system.provider.HttpProvider;
+import com.lanxinbase.system.provider.HttpV2Provider;
 import com.lanxinbase.system.provider.basic.HttpRequestData;
-import com.lanxinbase.system.utils.JsonUtil;
+import com.lanxinbase.system.provider.basic.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +28,9 @@ public class WeixinSignServiceImpl extends CompactService {
 
     @Autowired
     private CacheProvider cacheProvider;
+
+    @Autowired
+    private HttpV2Provider httpV2Provider;
 
     public WeixinSignServiceImpl() {
         super(WeixinSignServiceImpl.class);
@@ -85,9 +88,9 @@ public class WeixinSignServiceImpl extends CompactService {
         String ticket = (String) cacheProvider.get(KEY_JSAPI_TICKET);
         if (ticket == null) {
             String accessToken = this.getAccessToken();
-            HttpProvider httpProvider = HttpProvider.getInstance();
-            String res = httpProvider.get(String.format(URL_TICKET, accessToken), new HttpRequestData());
-            Map<String, Object> resMap = JsonUtil.JsonToMap(res);
+            Response res = httpV2Provider.get(String.format(URL_TICKET, accessToken), new HttpRequestData());
+
+            Map<String, Object> resMap = res.getData();
             if (resMap != null && resMap.containsKey("ticket")) {
                 ticket = resMap.get("ticket").toString();
                 cacheProvider.put(KEY_JSAPI_TICKET, ticket, 7190L);
@@ -102,10 +105,9 @@ public class WeixinSignServiceImpl extends CompactService {
             String appId = Application.getInstance(null).getConf(ConstantConf.CONF_WEIXIN_G_APPID);
             String secret = Application.getInstance(null).getConf(ConstantConf.CONF_WEIXIN_G_APPSECRET);
 
-            HttpProvider httpProvider = HttpProvider.getInstance();
-            String res = httpProvider.get(String.format(URL_ACCESS_TOKEN, appId, secret), new HttpRequestData());
+            Response res = httpV2Provider.get(String.format(URL_ACCESS_TOKEN, appId, secret), new HttpRequestData());
 
-            Map<String, Object> resMap = JsonUtil.JsonToMap(res);
+            Map<String, Object> resMap = res.getData();
             if (resMap != null && resMap.containsKey("access_token")) {
                 accessToken = resMap.get("access_token").toString();
                 cacheProvider.put(KEY_ACCESSTOKEN_KEY, accessToken, 7190L);

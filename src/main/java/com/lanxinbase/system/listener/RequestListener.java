@@ -5,7 +5,7 @@ import com.lanxinbase.system.basic.CompactProvider;
 import com.lanxinbase.system.core.Application;
 import com.lanxinbase.system.exception.IllegalServiceException;
 import com.lanxinbase.system.provider.basic.IRequest;
-import com.lanxinbase.system.utils.JsonUtil;
+import com.lanxinbase.system.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.util.StringUtils;
@@ -122,12 +122,12 @@ public class RequestListener extends CompactProvider implements IRequest {
             }
 
             Map<String,String> map;
-            if (JsonUtil.isJson(sb.toString())){
+            if (JsonUtils.isJson(sb.toString())){
                 /**
                  * 格式比如：{'key':'val',...}
                  * 一级json格式
                  */
-                map = JsonUtil.JsonToMaps(sb.toString());
+                map = JsonUtils.jsonToMapString(sb.toString());
             }else {
                 map = parserParams(sb.toString());
             }

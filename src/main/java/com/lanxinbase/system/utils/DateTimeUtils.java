@@ -12,7 +12,7 @@ import java.util.Locale;
 
 /**
  * Created by alan on 2019/4/19.
- *
+ * <p>
  * ********************************
  * getTime():1555776871585
  * getTimeInt():1555776871
@@ -73,6 +73,8 @@ public class DateTimeUtils extends OutPut {
     public static final String DATE_TIME_FULL = "yyyy-MM-dd HH:mm:ss";
     public static final String DATE_TIME_FULL2 = "yyyyMMddHHmmss";
     public static final String WEEK = "EEEE";
+
+    public static final int FORMAT_EX0 = -1;
     public static final int FORMAT_EX = 1;
     public static final int FORMAT_EX2 = 2;
 
@@ -280,10 +282,11 @@ public class DateTimeUtils extends OutPut {
 
     /**
      * 格式化当前时间
+     *
      * @return
      */
     public static String format() {
-        return format(getTime(),1);
+        return format(getTime(), 1);
     }
 
     /**
@@ -338,8 +341,10 @@ public class DateTimeUtils extends OutPut {
      */
     public static String format(LocalDate date, int format) {
         String regx = "/";
-        if (1 == format) {
+        if (FORMAT_EX == format) {
             regx = "-";
+        } else if (FORMAT_EX0 == format) {
+            regx = "";
         }
         StringBuffer st = new StringBuffer();
         st.append(date.getYear()).append(regx)
@@ -389,7 +394,7 @@ public class DateTimeUtils extends OutPut {
      * 时区时间格式化文本
      *
      * @param dateTime 时区时间对象
-     * @param format 1~2
+     * @param format   1~2
      * @return String
      */
     public static String format(ZonedDateTime dateTime, int format) {
@@ -409,7 +414,8 @@ public class DateTimeUtils extends OutPut {
 
     /**
      * 格式化本地日期
-     * @param date 本地日期对象
+     *
+     * @param date   本地日期对象
      * @param format 日期时间格式化对象:DateTimeFormatter.ISO_DATE
      * @return String
      */
@@ -419,7 +425,8 @@ public class DateTimeUtils extends OutPut {
 
     /**
      * 格式化本地时间
-     * @param time 本地时间对象
+     *
+     * @param time   本地时间对象
      * @param format 日期时间格式化对象:DateTimeFormatter.ISO_TIME
      * @return String
      */
@@ -429,8 +436,9 @@ public class DateTimeUtils extends OutPut {
 
     /**
      * 格式化本地日期时间
+     *
      * @param dateTime 本地日期时间对象
-     * @param format 日期时间格式化对象:DateTimeFormatter.ISO_LOCAL_DATE_TIME|ISO_DATE_TIME
+     * @param format   日期时间格式化对象:DateTimeFormatter.ISO_LOCAL_DATE_TIME|ISO_DATE_TIME
      * @return String
      */
     public static String format(LocalDateTime dateTime, DateTimeFormatter format) {
@@ -439,8 +447,9 @@ public class DateTimeUtils extends OutPut {
 
     /**
      * 格式化时区日期时间
+     *
      * @param dateTime 时区日期时间对象
-     * @param format 日期格式化对象:DateTimeFormatter.ISO_ZONED_DATE_TIME|ISO_DATE_TIME
+     * @param format   日期格式化对象:DateTimeFormatter.ISO_ZONED_DATE_TIME|ISO_DATE_TIME
      * @return String
      */
     public static String format(ZonedDateTime dateTime, DateTimeFormatter format) {
@@ -449,6 +458,7 @@ public class DateTimeUtils extends OutPut {
 
     /**
      * 取Date对象
+     *
      * @return Date
      */
     public static Date getDate() {
@@ -457,6 +467,7 @@ public class DateTimeUtils extends OutPut {
 
     /**
      * 取Timestamp对象
+     *
      * @return Timestamp
      */
     public static Timestamp getTimestamp() {
@@ -465,6 +476,7 @@ public class DateTimeUtils extends OutPut {
 
     /**
      * 取Timestamp对象
+     *
      * @return Timestamp
      */
     public static Timestamp getTimestampL() {
@@ -491,6 +503,7 @@ public class DateTimeUtils extends OutPut {
 
     /**
      * 获取当天日（按月）
+     *
      * @return int
      */
     public static int getDayOfMonth() {
@@ -499,6 +512,7 @@ public class DateTimeUtils extends OutPut {
 
     /**
      * 获取当天日（按年）
+     *
      * @return int
      */
     public static int getDayOfYear() {
@@ -507,6 +521,7 @@ public class DateTimeUtils extends OutPut {
 
     /**
      * 获取当月最后一天
+     *
      * @return int
      */
     public static int getDayOfMonthMax() {
@@ -515,6 +530,7 @@ public class DateTimeUtils extends OutPut {
 
     /**
      * 获取Month对象
+     *
      * @return Month
      */
     public static Month getMonth() {
@@ -523,6 +539,7 @@ public class DateTimeUtils extends OutPut {
 
     /**
      * 获取月份（当地格式）
+     *
      * @return String|六月
      */
     public static String getMonthS() {
@@ -531,6 +548,7 @@ public class DateTimeUtils extends OutPut {
 
     /**
      * 获取月份
+     *
      * @return int
      */
     public static int getMonthI() {
@@ -539,6 +557,7 @@ public class DateTimeUtils extends OutPut {
 
     /**
      * 取年份
+     *
      * @return int|2019
      */
     public static int getYear() {
@@ -547,6 +566,7 @@ public class DateTimeUtils extends OutPut {
 
     /**
      * 取小时
+     *
      * @return int|0~23
      */
     public static int getHour() {
@@ -555,6 +575,7 @@ public class DateTimeUtils extends OutPut {
 
     /**
      * 取分钟
+     *
      * @return int|0~59
      */
     public static int getMinute() {
@@ -563,6 +584,7 @@ public class DateTimeUtils extends OutPut {
 
     /**
      * 取秒
+     *
      * @return int|0~59
      */
     public static int getSecond() {
@@ -571,6 +593,7 @@ public class DateTimeUtils extends OutPut {
 
     /**
      * 格式化本地日期时间对象
+     *
      * @param dateTime 本地日期时间对象
      * @param pattern  public static final String YEAR = "yyyy";
      *                 public static final String MONTH = "MM";
@@ -589,8 +612,9 @@ public class DateTimeUtils extends OutPut {
 
     /**
      * 格式化日期时间（整数）
+     *
      * @param dateTime 时间戳
-     * @param pattern 格式化文本
+     * @param pattern  格式化文本
      * @return String
      */
     public static String format(int dateTime, String pattern) {
@@ -599,8 +623,9 @@ public class DateTimeUtils extends OutPut {
 
     /**
      * 格式化日期时间（长整数）
+     *
      * @param dateTime 微秒时间戳
-     * @param pattern 格式化文本
+     * @param pattern  格式化文本
      * @return String
      */
     public static String format(long dateTime, String pattern) {
@@ -609,54 +634,54 @@ public class DateTimeUtils extends OutPut {
 
     public static void main(String[] args) {
         out("********************************");
-        out("getTime():"+getTime());
-        out("getTimeInt():"+getTimeInt());
-        out("getLocalDate():"+getLocalDate());
-        out("parseLocalDate(\"2019-04-20\",1):"+parseLocalDate("2019-04-20",1));
-        out("parseLocalDate(2019,04,20):"+parseLocalDate(2019,04,20));
-        out("plus(getLocalDate(),2,ChronoUnit.DAYS):"+plus(getLocalDate(),2,ChronoUnit.DAYS));
+        out("getTime():" + getTime());
+        out("getTimeInt():" + getTimeInt());
+        out("getLocalDate():" + getLocalDate());
+        out("parseLocalDate(\"2019-04-20\",1):" + parseLocalDate("2019-04-20", 1));
+        out("parseLocalDate(2019,04,20):" + parseLocalDate(2019, 04, 20));
+        out("plus(getLocalDate(),2,ChronoUnit.DAYS):" + plus(getLocalDate(), 2, ChronoUnit.DAYS));
         out("--------------------------------");
-        out("getLocalTime():"+getLocalTime());
-        out("parseLocalTime(\"23:56:00\"):"+parseLocalTime("23:56:00"));
-        out("parseLocalTime(23,56,12):"+parseLocalTime(23,56,12));
-        out("plus(getLocalTime(),-3,ChronoUnit.HOURS):"+plus(getLocalTime(),-3,ChronoUnit.HOURS));
+        out("getLocalTime():" + getLocalTime());
+        out("parseLocalTime(\"23:56:00\"):" + parseLocalTime("23:56:00"));
+        out("parseLocalTime(23,56,12):" + parseLocalTime(23, 56, 12));
+        out("plus(getLocalTime(),-3,ChronoUnit.HOURS):" + plus(getLocalTime(), -3, ChronoUnit.HOURS));
         out("--------------------------------");
-        out("getLocalDateTime():"+getLocalDateTime());
-        out("parseLocalDateTime(\"2019-04-20 21:05:56\",1):"+parseLocalDateTime("2019-04-20 21:05:56",1));
-        out("parseLocalDateTime(2019,4,20,21,05,56):"+parseLocalDateTime(2019,4,20,21,05,56));
-        out("plus(getLocalDateTime(),-1,ChronoUnit.MONTHS):"+plus(getLocalDateTime(),-1,ChronoUnit.MONTHS));
+        out("getLocalDateTime():" + getLocalDateTime());
+        out("parseLocalDateTime(\"2019-04-20 21:05:56\",1):" + parseLocalDateTime("2019-04-20 21:05:56", 1));
+        out("parseLocalDateTime(2019,4,20,21,05,56):" + parseLocalDateTime(2019, 4, 20, 21, 05, 56));
+        out("plus(getLocalDateTime(),-1,ChronoUnit.MONTHS):" + plus(getLocalDateTime(), -1, ChronoUnit.MONTHS));
         out("--------------------------------");
-        out("format(int t):"+format(getTimeInt()));
-        out("format(long t):"+format(getTime()));
-        out("format(int t,1):"+format(getTimeInt(),1));
-        out("format(long t,1):"+format(getTime(),1));
-        out("format(LocalDate d,1):"+format(getLocalDate(),1));
-        out("format(LocalTime t):"+format(getLocalTime()));
-        out("format(LocalDateTime t,1):"+format(getLocalDateTime(),1));
-        out("format(ZonedDateTime.now(),1):"+format(ZonedDateTime.now(),1));
-        out("format(LocalDate d,DateTimeFormatter.ISO_DATE):"+format(getLocalDate(),DateTimeFormatter.ISO_DATE));
-        out("format(LocalTime t,DateTimeFormatter.ISO_TIME):"+format(getLocalTime(),DateTimeFormatter.ISO_TIME));
-        out("format(LocalDateTime t,DateTimeFormatter.ISO_DATE_TIME):"+format(getLocalDateTime(),DateTimeFormatter.ISO_DATE_TIME));
-        out("format(ZonedDateTime t,DateTimeFormatter.ISO_DATE_TIME):"+format(ZonedDateTime.now(),DateTimeFormatter.ISO_DATE_TIME));
-        out("format(LocalDateTime t,DATE_TIME_FULL):"+format(getLocalDateTime(),DATE_TIME_FULL));
-        out("format(int i,DATE_TIME_FULL):"+format(getTimeInt(),DATE_TIME_FULL));
-        out("format(long l,DATE_TIME_FULL):"+format(getTime(),DATE_TIME_FULL));
+        out("format(int t):" + format(getTimeInt()));
+        out("format(long t):" + format(getTime()));
+        out("format(int t,1):" + format(getTimeInt(), 1));
+        out("format(long t,1):" + format(getTime(), 1));
+        out("format(LocalDate d,1):" + format(getLocalDate(), 1));
+        out("format(LocalTime t):" + format(getLocalTime()));
+        out("format(LocalDateTime t,1):" + format(getLocalDateTime(), 1));
+        out("format(ZonedDateTime.now(),1):" + format(ZonedDateTime.now(), 1));
+        out("format(LocalDate d,DateTimeFormatter.ISO_DATE):" + format(getLocalDate(), DateTimeFormatter.ISO_DATE));
+        out("format(LocalTime t,DateTimeFormatter.ISO_TIME):" + format(getLocalTime(), DateTimeFormatter.ISO_TIME));
+        out("format(LocalDateTime t,DateTimeFormatter.ISO_DATE_TIME):" + format(getLocalDateTime(), DateTimeFormatter.ISO_DATE_TIME));
+        out("format(ZonedDateTime t,DateTimeFormatter.ISO_DATE_TIME):" + format(ZonedDateTime.now(), DateTimeFormatter.ISO_DATE_TIME));
+        out("format(LocalDateTime t,DATE_TIME_FULL):" + format(getLocalDateTime(), DATE_TIME_FULL));
+        out("format(int i,DATE_TIME_FULL):" + format(getTimeInt(), DATE_TIME_FULL));
+        out("format(long l,DATE_TIME_FULL):" + format(getTime(), DATE_TIME_FULL));
         out("--------------------------------");
-        out("getYear():"+getYear());
-        out("getMonthI():"+getMonthI());
-        out("getMonth():"+getMonth());
-        out("getMonthS():"+getMonthS());
-        out("getDayOfMonth():"+getDayOfMonth());
-        out("getDayOfYear():"+getDayOfYear());
-        out("getDayOfMonthMax():"+getDayOfMonthMax());
-        out("getWeek():"+getWeek());
-        out("getWeekI():"+getWeekI());
-        out("getDate():"+getDate());
-        out("getTimestamp():"+getTimestamp());
-        out("getTimestampL():"+getTimestampL());
-        out("getHour():"+getHour());
-        out("getMinute():"+getMinute());
-        out("getSecond():"+getSecond());
+        out("getYear():" + getYear());
+        out("getMonthI():" + getMonthI());
+        out("getMonth():" + getMonth());
+        out("getMonthS():" + getMonthS());
+        out("getDayOfMonth():" + getDayOfMonth());
+        out("getDayOfYear():" + getDayOfYear());
+        out("getDayOfMonthMax():" + getDayOfMonthMax());
+        out("getWeek():" + getWeek());
+        out("getWeekI():" + getWeekI());
+        out("getDate():" + getDate());
+        out("getTimestamp():" + getTimestamp());
+        out("getTimestampL():" + getTimestampL());
+        out("getHour():" + getHour());
+        out("getMinute():" + getMinute());
+        out("getSecond():" + getSecond());
 
 
     }

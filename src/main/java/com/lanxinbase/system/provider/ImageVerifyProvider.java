@@ -2,8 +2,7 @@ package com.lanxinbase.system.provider;
 
 import com.lanxinbase.system.annotation.Provider;
 import com.lanxinbase.system.exception.IllegalValidateException;
-import com.lanxinbase.system.utils.Md5Utils;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.lanxinbase.system.utils.MessageDigestUtils;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
@@ -115,7 +114,7 @@ public class ImageVerifyProvider {
             g2d.drawLine(x, y, x + 2, y + 2);
         }
 
-        session.setAttribute(KEY_SESSION_VERIFY, Md5Utils.md5(code.toLowerCase() + hash).toUpperCase());
+        session.setAttribute(KEY_SESSION_VERIFY, MessageDigestUtils.md5(code.toLowerCase() + hash).toUpperCase());
         session.setAttribute(KEY_SESSION_DATETIME, System.currentTimeMillis() + expireIn);
 
         response.setContentType("image/jpeg");
@@ -152,7 +151,7 @@ public class ImageVerifyProvider {
             throw new IllegalValidateException("验证码不存在");
         }
 
-        String now = Md5Utils.md5(verifyCode.toLowerCase() + hash).toUpperCase();
+        String now = MessageDigestUtils.md5(verifyCode.toLowerCase() + hash).toUpperCase();
         if (now.equals(source)) {
             session.removeAttribute(KEY_SESSION_DATETIME);
             session.removeAttribute(KEY_SESSION_VERIFY);

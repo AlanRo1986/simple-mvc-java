@@ -1,10 +1,8 @@
 package com.lanxinbase.app.api;
 
 import com.lanxinbase.system.core.ResultResp;
-import com.lanxinbase.system.service.resource.IActiveMQProducerService;
 import com.lanxinbase.system.service.resource.IActiveMQService;
 import com.lanxinbase.system.utils.DateTimeUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,29 +20,8 @@ public class TestActiveMQController {
 
     private static final Logger logger = Logger.getLogger("TestActiveMQController>");
 
-//    @Autowired
-//    private IActiveMQProducerService producerService;
-
     @Resource
     private IActiveMQService activeMQService;
-
-//    @RequestMapping(value = "/activemq/queue")
-//    public ResultResp<Void> testQueue(HttpServletRequest request) {
-//        ResultResp<Void> resp = new ResultResp<>();
-//        String str = "test queue " + DateTimeUtils.getTimeInt();
-//        producerService.send(str);
-//        resp.setInfo(str);
-//        return resp;
-//    }
-//
-//    @RequestMapping(value = "/activemq/mqtt")
-//    public ResultResp<Void> testMqtt(HttpServletRequest request) {
-//        ResultResp<Void> resp = new ResultResp<>();
-//        String str = "test mqtt " + DateTimeUtils.getTimeInt();
-//        producerService.push(str);
-//        resp.setInfo(str);
-//        return resp;
-//    }
 
 
     /**

@@ -1,18 +1,15 @@
 package com.lanxinbase.system.provider;
 
-import com.lanxinbase.constant.Constant;
-import com.lanxinbase.constant.ConstantAuthority;
 
 import com.lanxinbase.model.AdminToken;
 import com.lanxinbase.system.annotation.Provider;
 import com.lanxinbase.system.basic.CompactProvider;
 import com.lanxinbase.system.basic.ExceptionError;
 import com.lanxinbase.system.exception.IllegalAccessDeniedException;
-import com.lanxinbase.system.exception.IllegalServiceException;
 import com.lanxinbase.system.listener.RequestListener;
 import com.lanxinbase.system.provider.basic.ISecurity;
-import com.lanxinbase.system.utils.DateUtils;
-import com.lanxinbase.system.utils.Md5Utils;
+import com.lanxinbase.system.utils.DateTimeUtils;
+import com.lanxinbase.system.utils.MessageDigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
@@ -221,7 +218,7 @@ public class SecurityProvider extends CompactProvider implements ISecurity {
     }
 
     public String makeUserToken(String hash) {
-        return Md5Utils.md5(hash + DateUtils.getTime());
+        return MessageDigestUtils.md5(hash + DateTimeUtils.getTime());
     }
 
 }

@@ -6,7 +6,7 @@ import com.lanxinbase.service.resource.IUploadService;
 import com.lanxinbase.system.basic.CompactService;
 import com.lanxinbase.system.callback.IFilePutCallback;
 import com.lanxinbase.system.exception.IllegalServiceException;
-import com.lanxinbase.system.utils.DateUtils;
+import com.lanxinbase.system.utils.DateTimeUtils;
 import com.lanxinbase.system.utils.ImageUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -158,14 +158,14 @@ public class UploadServiceImpl extends CompactService implements IUploadService 
         if (!path.substring(path.length() - 1).equals("/")) {
             path += "/";
         }
-        path += "images/" + DateUtils.getFullDateQ(null) + "/";
+        path += "images/" + DateTimeUtils.format(DateTimeUtils.getLocalDate(),DateTimeUtils.FORMAT_EX0) + "/";
 
         return getFolder(path);
     }
 
     @Override
     public String getFileName() throws IllegalServiceException {
-        return String.valueOf(DateUtils.getTime());
+        return String.valueOf(DateTimeUtils.getTime());
     }
 
     @Override

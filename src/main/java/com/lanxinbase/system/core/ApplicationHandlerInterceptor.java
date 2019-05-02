@@ -2,7 +2,7 @@ package com.lanxinbase.system.core;
 
 import com.lanxinbase.system.exception.IllegalAccessDeniedException;
 import com.lanxinbase.system.provider.SecurityProvider;
-import com.lanxinbase.system.utils.JsonUtil;
+import com.lanxinbase.system.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,7 +35,7 @@ public class ApplicationHandlerInterceptor  implements HandlerInterceptor {
             httpServletResponse.setCharacterEncoding("utf-8");
             httpServletResponse.setContentType("application/json");
             //httpServletResponse.setStatus(e.getCode());//打开此参数将使用restful风格返回状态码
-            httpServletResponse.getWriter().append(JsonUtil.ObjectToJson(resp,true));
+            httpServletResponse.getWriter().append(JsonUtils.objectToJson(resp,true));
         }
         return false;
     }

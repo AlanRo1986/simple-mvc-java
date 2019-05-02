@@ -9,7 +9,7 @@ import com.lanxinbase.system.callback.IFilePutCallback;
 import com.lanxinbase.system.core.Application;
 import com.lanxinbase.system.exception.IllegalServiceException;
 import com.lanxinbase.system.utils.CommonUtils;
-import com.lanxinbase.system.utils.DateUtils;
+import com.lanxinbase.system.utils.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.util.StringUtils;
@@ -38,7 +38,7 @@ public abstract class AbstractCompactController extends AbstractCompact {
     @Autowired
     private ApplicationEventPublisher eventPublisher;
 
-    public AbstractCompactController(){
+    public AbstractCompactController() {
         super(AbstractCompactController.class);
     }
 
@@ -124,7 +124,7 @@ public abstract class AbstractCompactController extends AbstractCompact {
 
     public String formatDateTime(Integer time) {
         if (time != null && time > 86400) {
-            return DateUtils.getFullDateTime(Long.parseLong(time + "000"));
+            return DateTimeUtils.format(time, DateTimeUtils.FORMAT_EX);
         }
         return "";
     }
