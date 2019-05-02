@@ -22,8 +22,13 @@ import java.net.URISyntaxException;
  * 2.启动artemis,命令：/opt/arteclsmis/bin/artemis run
  *
  * @See http://activemq.apache.org/components/artemis/migration
+ *
+ * *注：以前总是喜欢在继承组件的时候使用config的方式来配置信息，这样子方便管理，但这种不适合ActiveMQ，所以重新编写了
+ * 一个服务类，用于操作ActiveMQ，更多请查阅：ActiveMQService.java
+ * @See com.lanxinbase.system.service.ActiveMQService
  */
-@Configuration
+//@Configuration
+@Deprecated
 public class ActiveMQConfig implements DisposableBean {
 
     public static final String TOPIC_DEFAULT = "topic/default";
@@ -45,6 +50,8 @@ public class ActiveMQConfig implements DisposableBean {
 
     public ActiveMQConfig() {
         factory = new ActiveMQConnectionFactory(tcp_uri);
+        factory.setCacheDestinations(true);
+
         try {
             connection = factory.createConnection();
             connection.start();
@@ -72,7 +79,7 @@ public class ActiveMQConfig implements DisposableBean {
         if (mqType == 0) {
             return session.createProducer(session.createQueue(QUEUE_DEFAULT));
         }
-        return session.createProducer(session.createQueue(TOPIC_DEFAULT));
+        return session.createProducer(session.createTopic(TOPIC_DEFAULT));
     }
 
     /**
@@ -88,7 +95,7 @@ public class ActiveMQConfig implements DisposableBean {
         if (mqType == 0) {
             consumer = session.createConsumer(session.createQueue(QUEUE_DEFAULT));
         } else {
-            consumer = session.createConsumer(session.createQueue(TOPIC_DEFAULT));
+            consumer = session.createConsumer(session.createTopic(TOPIC_DEFAULT));
         }
         consumer.setMessageListener(listener);
         return consumer;

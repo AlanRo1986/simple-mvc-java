@@ -2,12 +2,16 @@ package com.lanxinbase.app.api;
 
 import com.lanxinbase.system.core.ResultResp;
 import com.lanxinbase.system.service.resource.IActiveMQProducerService;
+import com.lanxinbase.system.service.resource.IActiveMQService;
 import com.lanxinbase.system.utils.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+import javax.jms.*;
 import javax.servlet.http.HttpServletRequest;
+import java.util.logging.Logger;
 
 /**
  * Created by alan on 2019/5/1.
@@ -16,24 +20,85 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping(value = "/test")
 public class TestActiveMQController {
 
-    @Autowired
-    private IActiveMQProducerService producerService;
+    private static final Logger logger = Logger.getLogger("TestActiveMQController>");
 
-    @RequestMapping(value = "/activemq/queue")
-    public ResultResp<Void> testQueue(HttpServletRequest request) {
+//    @Autowired
+//    private IActiveMQProducerService producerService;
+
+    @Resource
+    private IActiveMQService activeMQService;
+
+//    @RequestMapping(value = "/activemq/queue")
+//    public ResultResp<Void> testQueue(HttpServletRequest request) {
+//        ResultResp<Void> resp = new ResultResp<>();
+//        String str = "test queue " + DateTimeUtils.getTimeInt();
+//        producerService.send(str);
+//        resp.setInfo(str);
+//        return resp;
+//    }
+//
+//    @RequestMapping(value = "/activemq/mqtt")
+//    public ResultResp<Void> testMqtt(HttpServletRequest request) {
+//        ResultResp<Void> resp = new ResultResp<>();
+//        String str = "test mqtt " + DateTimeUtils.getTimeInt();
+//        producerService.push(str);
+//        resp.setInfo(str);
+//        return resp;
+//    }
+
+
+    /**
+     * /test/activemq/pub/add?name=testQueue&type=queue
+     * /test/activemq/pub/add?name=testQueue1&type=queue
+     * <p>
+     * /test/activemq/pub/add?name=testTopic&type=topic
+     * /test/activemq/pub/add?name=testTopic1&type=topic
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/activemq/pub/add")
+    public ResultResp<Void> pubAdd(HttpServletRequest request) {
         ResultResp<Void> resp = new ResultResp<>();
-        String str = "test queue " + DateTimeUtils.getTimeInt();
-        producerService.send(str);
-        resp.setInfo(str);
+
+        String name = request.getParameter("name");
+        String type = request.getParameter("type");
+
+        String msg = "test mqtt " + DateTimeUtils.getTimeInt();
+
+        activeMQService.send(name, type, msg);
+
+        resp.setInfo(msg);
         return resp;
     }
 
-    @RequestMapping(value = "/activemq/mqtt")
-    public ResultResp<Void> testMqtt(HttpServletRequest request) {
+    /**
+     * /test/activemq/sub/add?id=100&name=testQueue&type=queue
+     * /test/activemq/sub/add?id=101&name=testQueue1&type=queue
+     * <p>
+     * /test/activemq/sub/add?id=100&name=testTopic&type=topic
+     * /test/activemq/sub/add?id=101&name=testTopic&type=topic
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/activemq/sub/add")
+    public ResultResp<Void> subAdd(HttpServletRequest request) {
         ResultResp<Void> resp = new ResultResp<>();
-        String str = "test mqtt " + DateTimeUtils.getTimeInt();
-        producerService.push(str);
-        resp.setInfo(str);
+
+        String id = request.getParameter("id");
+        String name = request.getParameter("name");
+        String type = request.getParameter("type");
+
+        activeMQService.addListener(name, type, (m) -> {
+            TextMessage textMessage = (TextMessage) m;
+            try {
+                logger.info(id + " : " + textMessage.getText());
+            } catch (JMSException e) {
+                e.printStackTrace();
+            }
+        });
+
         return resp;
     }
 }

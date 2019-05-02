@@ -11,6 +11,7 @@ import java.util.Map;
 /**
  * Created by alan.luo on 2017/7/27.
  */
+@Deprecated
 @Provider
 public class HttpProvider extends HttpConnector {
 

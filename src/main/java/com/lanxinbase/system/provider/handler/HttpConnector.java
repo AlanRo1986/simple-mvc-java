@@ -13,6 +13,7 @@ import java.util.Map;
 /**
  * Created by alan.luo on 2017/7/27.
  */
+@Deprecated
 public abstract class HttpConnector extends BasicProvider {
 
     public static final String GET = "GET";   //读
@@ -150,7 +151,7 @@ public abstract class HttpConnector extends BasicProvider {
      * @param cookies
      * @param conn
      */
-    protected static final void setCookies(Map<String,Object> cookies, URLConnection conn){
+    protected static final void setCookies(Map<String,String> cookies, URLConnection conn){
         if (cookies != null && !cookies.isEmpty()){
             for (String key:cookies.keySet()){
                 conn.addRequestProperty(key, String.valueOf(cookies.get(key)));

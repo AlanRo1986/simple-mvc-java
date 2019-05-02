@@ -1,7 +1,7 @@
 package com.lanxinbase.system.provider.basic;
 
 
-import com.lanxinbase.system.provider.handler.HttpConnector;
+import com.lanxinbase.system.provider.handler.HttpV2Connector;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,10 +11,10 @@ import java.util.Map;
  */
 public class HttpRequestData {
 
-    private String method = HttpConnector.GET;
+    private String method = HttpV2Connector.METHOD_GET;
 
     private Map<String,Object> param = null;
-    private Map<String,Object> cookie = null;
+    private Map<String,String> cookie = null;
     private Map<String,String> header = null;
 
     private String body = null;
@@ -35,11 +35,11 @@ public class HttpRequestData {
         return this;
     }
 
-    public Map<String, Object> getCookie() {
+    public Map<String, String> getCookie() {
         return cookie;
     }
 
-    public HttpRequestData setCookie(String key, Object val) {
+    public HttpRequestData setCookie(String key, String val) {
         this.cookie.put(key,val);
         return this;
     }

@@ -15,16 +15,17 @@ import javax.jms.*;
 /**
  * Created by alan on 2019/5/1.
  */
-@Service
+//@Service
+@Deprecated
 public class ActiveMQProducerServiceImpl extends CompactService implements IActiveMQProducerService {
 
-    @Autowired
+//    @Autowired
     private MessageProducer producer;
 
-    @Autowired
+//    @Autowired
     private Session session;
 
-    @Autowired
+//    @Autowired
     private BlockingConnection blockingConnection;
 
 
