@@ -13,12 +13,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by alan on 2019/5/2.
- *
- *  * 0.下载artemis，不是ActiveMQ!!
+ * <p>
+ * * 0.下载artemis，不是ActiveMQ!!
  * 在ActiveMQ中，这些都是自动的，但是artemis在第一次使用时候需要创建一个broker。
  * 1.创建broker,命令： ./bin/artemis create --user admin --password admin --role admins --allow-anonymous true /opt/arteclsmis
  * 2.启动artemis,命令：/opt/arteclsmis/bin/artemis run
- *
+ * <p>
  * <p>
  * Queue Test:
  * 生产者:
@@ -104,9 +104,13 @@ public class ActiveMQService extends CompactService implements IActiveMQService,
         factory = new ActiveMQConnectionFactory(tcp_uri);
         factory.setCacheDestinations(true);
 
-        connection = factory.createConnection();
-        connection.start();
-        createSession();
+        try {
+            connection = factory.createConnection();
+            connection.start();
+            createSession();
+        }catch (JMSException e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -265,6 +269,11 @@ public class ActiveMQService extends CompactService implements IActiveMQService,
      */
     @Override
     public boolean send(String name, String type, String message) {
+        return this.send(name, type, message, null);
+    }
+
+    @Override
+    public boolean send(String name, String type, String message, CompletionListener listener) {
         MessageProducer producer;
         try {
             if (TYPE_QUEUE.equals(type)) {
@@ -272,7 +281,12 @@ public class ActiveMQService extends CompactService implements IActiveMQService,
             } else {
                 producer = getMessageProducer(createTopic(getSession(), name));
             }
-            return this.send(producer, message);
+            if (listener == null) {
+                return this.send(producer, message);
+            } else {
+                return this.send(producer, message, listener);
+            }
+
         } catch (JMSException e) {
             e.printStackTrace();
         }
@@ -291,6 +305,17 @@ public class ActiveMQService extends CompactService implements IActiveMQService,
     public boolean send(MessageProducer producer, String message) {
         try {
             producer.send(session.createTextMessage(message));
+            return true;
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean send(MessageProducer producer, String message, CompletionListener listener) {
+        try {
+            producer.send(session.createTextMessage(message), listener);
             return true;
         } catch (JMSException e) {
             e.printStackTrace();
@@ -331,6 +356,7 @@ public class ActiveMQService extends CompactService implements IActiveMQService,
 
     /**
      * 程序退出时需要关闭或停止连接
+     *
      * @throws Exception
      */
     @Override

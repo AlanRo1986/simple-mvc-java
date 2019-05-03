@@ -38,7 +38,13 @@
     @RestController
     public class ATestController extends BasicApiController implements IDefaultControllerMethod<User> {...}
 ##视图控制器(例子) 
-    @Controller public class DownloadViewController { @RequestMapping(value = "/download/index",method = RequestMethod.GET) public String index(HttpServletRequest request){ //Redirect to /WEB-INF/jsp/views/Download/index.jsp return "Download/index"; } }
+    @Controller 
+    public class DownloadViewController { 
+        @RequestMapping(value = "/download/index",method = RequestMethod.GET) 
+        public String index(HttpServletRequest request){ 
+            //Redirect to /WEB-INF/jsp/views/Download/index.jsp return "Download/index"; 
+        } 
+    }
 
 ##表单验证 
     需要在model类中标注对应的验证注解（system/annotation）如@Mobile;
