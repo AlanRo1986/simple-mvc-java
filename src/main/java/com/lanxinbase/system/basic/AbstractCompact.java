@@ -11,19 +11,28 @@ public abstract class AbstractCompact {
 
     private Logger logger;
 
-    public AbstractCompact(Class classz){
+    public AbstractCompact(Class classz) {
         logger = Logger.getLogger(classz.getName());
     }
 
-    public void logger(Object o){
-        logger.info(o.toString());
+    public void logger(Object... args) {
+        if (args.length > 0) {
+            StringBuffer sb = new StringBuffer();
+            for (Object o : args) {
+                sb.append(o.toString()).append(" ");
+            }
+            logger.info(sb.toString());
+        } else {
+            logger.info("nil");
+        }
+
     }
 
-    public void println(Object o){
-        if (o == null){
+    public void println(Object o) {
+        if (o == null) {
             System.out.println("Compact>>null");
-        }else{
-            System.out.println("Compact>>"+o.toString());
+        } else {
+            System.out.println("Compact>>" + o.toString());
         }
     }
 
