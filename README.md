@@ -1,6 +1,7 @@
 #simple-mvc-java框架
 
-##框架说明 系统架构Spring + SpringMVC + Mybatis 并使用全java配置，废弃了传统的xml配置，让代码更简洁。 
+##框架说明 
+    系统架构Spring + SpringMVC + Mybatis 并使用全java配置，废弃了传统的xml配置，让代码更简洁。 
     消息队列：Redis、Spring、ActiveMQ
     版本号:v1.2.0 2019/05/02
 
@@ -37,7 +38,9 @@
     建议使用继承基础父类
     @RestController
     public class ATestController extends BasicApiController implements IDefaultControllerMethod<User> {...}
+
 ##视图控制器(例子) 
+```
     @Controller 
     public class DownloadViewController { 
         @RequestMapping(value = "/download/index",method = RequestMethod.GET) 
@@ -45,6 +48,7 @@
             //Redirect to /WEB-INF/jsp/views/Download/index.jsp return "Download/index"; 
         } 
     }
+```
 
 ##表单验证 
     需要在model类中标注对应的验证注解（system/annotation）如@Mobile;
